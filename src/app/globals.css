@@ -2,26 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 150 40% 98%;
+    --foreground: 150 10% 10%;
+    --card: 150 40% 98%;
+    --card-foreground: 150 10% 10%;
+    --popover: 150 40% 98%;
+    --popover-foreground: 150 10% 10%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 150 40% 90%;
+    --secondary-foreground: 150 10% 10%;
+    --muted: 150 40% 90%;
+    --muted-foreground: 150 10% 40%;
+    --accent: 150 40% 90%;
+    --accent-foreground: 150 10% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 150 10% 98%;
+    --border: 150 20% 85%;
+    --input: 150 20% 85%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 150 40% 5%;
+    --foreground: 150 10% 98%;
+    --card: 150 40% 5%;
+    --card-foreground: 150 10% 98%;
+    --popover: 150 40% 5%;
+    --popover-foreground: 150 10% 98%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 150 40% 15%;
+    --secondary-foreground: 150 10% 98%;
+    --muted: 150 40% 15%;
+    --muted-foreground: 150 10% 65%;
+    --accent: 150 40% 15%;
+    --accent-foreground: 150 10% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 150 10% 98%;
+    --border: 150 40% 15%;
+    --input: 150 40% 15%;
+    --ring: 142.1 70.6% 45.3%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.gradient-text {
+  @apply bg-gradient-to-r from-green-600 to-teal-500 bg-clip-text text-transparent;
+}
+
+.btn-hover-effect {
+  @apply relative overflow-hidden transition-all duration-300 ease-out;
+}
+
+.btn-hover-effect::after {
+  content: "";
+  @apply absolute inset-0 h-full w-full scale-0 rounded-full bg-white opacity-30 transition-all duration-300 ease-out;
+}
+
+.btn-hover-effect:hover::after {
+  @apply scale-150;
+}
+
+.btn-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
   }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+.btn-bounce:hover {
+  animation: bounce 0.6s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s;
+}
+
+.btn-ripple:hover::after {
+  transform: translate(-50%, -50%) scale(1);
 }
